@@ -22,19 +22,19 @@ Alpaca Market Data API (WebSocket)
   Streamlit dashboard (auto-refreshing)
 ```
 
-**Local dev stack (free, $0):**
-- Redpanda (Kafka-compatible broker) via Docker Compose — no Zookeeper, no AWS bill
-- Postgres as the warehouse stand-in (swap for Snowflake/BigQuery later, dbt makes this a config change, not a rewrite)
-- Alpaca free-tier market data (IEX feed, real but slightly delayed ticks — enough for this project)
+**Local dev stack :**
+- Redpanda (Kafka-compatible broker) via Docker Compose
+- Postgres as the warehouse stand-in 
+- Alpaca free-tier market data
 
-**Cloud swap path (for the resume bullet "deployed to AWS"):**
+**Cloud swap path:**
 - Redpanda -> Amazon Kinesis Data Streams
 - Postgres -> Snowflake or BigQuery
 - Add Kinesis Data Analytics or a Lambda consumer for the transform step
 
 ## Setup
 
-1. Get a free Alpaca account and API keys: https://alpaca.markets/ (paper trading / market data, no funding needed)
+1. Get a free Alpaca account and API keys: https://alpaca.markets/
 2. Copy `.env.example` to `.env` and fill in your keys
 3. Start the local broker + warehouse:
    ```
@@ -63,13 +63,6 @@ Alpaca Market Data API (WebSocket)
    uv run streamlit run dashboard/app.py
    ```
 
-## What to measure / write up (for your resume + interviews)
-
-- **End-to-end latency**: timestamp the moment a tick arrives from Alpaca vs. the moment it appears on the dashboard. Log this and report a p50/p95 number.
-- **Throughput**: ticks/sec the pipeline sustains without consumer lag.
-- **A failure you handled**: e.g. what happens if the consumer goes down for 60 seconds — does the broker buffer, do you lose data, how do you detect and recover? Kill the consumer on purpose and document it.
-- **Data quality**: add dbt tests (not_null, unique, freshness) on the staging model and note what they catch.
-
 ## Project layout
 
 ```
@@ -80,7 +73,7 @@ dashboard/          # Streamlit app reading from marts
 docker-compose.yml  # Redpanda + Postgres, local only
 ```
 
-## Next steps once this works end-to-end
+## Next steps
 
 - Add a rolling moving-average / anomaly-flag mart (e.g. flag ticks >2 std dev from 5-min mean)
 - Add dbt tests + a freshness check, and wire a Slack/email alert on failure
