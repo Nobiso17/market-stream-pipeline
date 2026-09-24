@@ -1,0 +1,21 @@
+# Environment / secrets
+.env
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# uv
+# (uv.lock is intentionally NOT ignored — commit it for reproducibility)
+
+# dbt
+dbt_project/target/
+dbt_project/dbt_packages/
+dbt_project/logs/
+
+# Local data
+raw_archive/
+
+# OS
+.DS_Store

@@ -1,0 +1,15 @@
+[project]
+name = "market-stream-pipeline"
+version = "0.1.0"
+description = "Real-time stock market streaming pipeline: Alpaca -> Redpanda -> Postgres -> dbt -> Streamlit"
+requires-python = ">=3.10"
+dependencies = [
+    "confluent-kafka==2.5.0",
+    "alpaca-py==0.29.0",
+    "websockets<13",
+    "python-dotenv==1.0.1",
+    "psycopg2-binary==2.9.9",
+    "streamlit==1.38.0",
+    "pandas==2.2.2",
+    "dbt-postgres==1.8.2",
+]

@@ -1,0 +1,25 @@
+# Copy to ~/.dbt/profiles.yml (or set DBT_PROFILES_DIR to this folder)
+market_stream:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: localhost
+      port: 5432
+      user: market
+      password: market
+      dbname: market_data
+      schema: public
+      threads: 4
+
+    # Example Snowflake target for when you migrate off local Postgres
+    # prod:
+    #   type: snowflake
+    #   account: your_account
+    #   user: your_user
+    #   password: your_password
+    #   role: transformer
+    #   database: MARKET_DATA
+    #   warehouse: COMPUTE_WH
+    #   schema: public
+    #   threads: 4

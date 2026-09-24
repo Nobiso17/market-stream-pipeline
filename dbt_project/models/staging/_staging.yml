@@ -1,0 +1,29 @@
+version: 2
+
+sources:
+  - name: raw
+    schema: public
+    tables:
+      - name: raw_stock_ticks
+        loaded_at_field: consumed_at
+        freshness:
+          warn_after: {count: 2, period: minute}
+          error_after: {count: 10, period: minute}
+
+models:
+  - name: stg_stock_ticks
+    description: Cleaned, typed stock tick events, one row per trade.
+    columns:
+      - name: tick_id
+        tests:
+          - unique
+          - not_null
+      - name: symbol
+        tests:
+          - not_null
+      - name: price
+        tests:
+          - not_null
+      - name: exchange_ts
+        tests:
+          - not_null
